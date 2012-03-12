@@ -1,0 +1,19 @@
+<?php
+
+$_code=$this->getMethodCode();
+?>
+<script type="text/javascript" >
+ initBuyCards(); 
+</script>
+<div class="gpl">
+<fieldset class="form-list" id="fieldset_<?php echo $_code ?>">
+    <ul id="payment_form_<?php echo $_code ?>" style="display:none">
+        <li>
+				<h2>Informação</h2>
+				<p>
+				Após o fechamento do pedido você será redirecionado ao ambiente da operadora de Cartão para geração do boleto.
+				</p>
+        </li>
+    </ul>
+</fieldset>
+</div>

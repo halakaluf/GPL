@@ -1,0 +1,24 @@
+<?php
+
+$installer = $this;
+
+/* @var $installer Mage_Catalog_Model_Resource_Eav_Mysql4_Setup */
+$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+
+$installer->startSetup();
+
+// Add gateway_tid to prduct attribute set
+$codigo = 'gateway_tid';
+$config = array(
+                'position' => 1,
+                'required'=> 0,
+                'label' => 'Gateway tid',
+                'type' => 'int',
+                'input'=>'text',
+                'apply_to'=>'simple,bundle,grouped,configurable',
+                'note'=>'Número de identificação da cielo para identificar o pagamento!'
+            );
+
+$setup->addAttribute('order', $codigo , $config);
+
+$installer->endSetup();

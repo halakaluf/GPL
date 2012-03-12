@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+	<checkout_onepage_index>
+		<reference name="head">
+			<!--action method="addJs"><script>phoenix/ipayment/processing.js</script></action-->
+  	      <action method="addCss"><stylesheet>gpl/gpl.css</stylesheet></action>
+		</reference>
+	</checkout_onepage_index>
+</layout>

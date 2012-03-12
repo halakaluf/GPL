@@ -1,0 +1,246 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/*
+//OQ FOI FEITO PARA INSERIR O CAMPO NUMERO NO CADASTRO DE ENDERECO
+1 INCLUI O CAMPO NO FORMULARIO HTML
+
+2 FIZ O INSERT NA TABELA eav_attribute PARA INCLUIR O CAMPO NOVO
+
+3 FIZ O INSERT NA TABELA customer_form_attribute PARA INFORMAR EM QUAIS FORMS ESSE CAMPO VAI APARECER
+
+NAO PRECISOU FAZER ISSO ----> TA FALTANDO TESTAR E CASO NAO FUNCIONE INCLUIR O CAMPO NO XML DO ETC DO MODULO CUSTOMER
+FIZ ESSE UPDATE PARA NO ADMIN ELE MOSTRAR OS 2 CAMPOS DE EDICAO DO NUMERO PQ ELE E MULTILINE
+update `conamore`.`customer_eav_attribute` set multiline_count = 2 where attribute_id = 137;
+
+$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+$setup->addAttribute('customer_address', 'numero', array(
+      'label'    => 'Número',
+      'type'     => 'text',
+      'input'    => 'multiline',
+      'is_user_defined'   => 1,
+      'is_system'         => 0,
+      'is_visible'        => 1,
+      'sort_order'        => 150,
+      'is_required'       => 1,
+      'multiline_count'   => 4,
+      'validate_rules'    => array(
+          'max_text_length'   => 10,
+          'min_text_length'   => 1
+      ),
+	));*/
+//$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+//$setup->removeAttribute('customer_address', 'numero');
+?>
+<?php
+/**
+ * Edit customer address template
+ *
+ * @see Mage_Customer_Block_Address_Edit
+ */
+?>
+<?php if($this->getTitle()): ?>
+<div class="page-title">
+    <h1><?php echo $this->getTitle() ?></h1>
+</div>
+<?php endif; ?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate">
+    <div class="fieldset">
+    <?php echo $this->getBlockHtml('formkey')?>
+    <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
+    <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
+        <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <?php echo $this->getNameBlockHtml() ?>
+            </li>
+            <li class="wide">
+                <label for="company"><?php echo $this->__('Company') ?></label>
+                <div class="input-box">
+                    <input type="text" name="company" id="company" title="<?php echo $this->__('Company') ?>" value="<?php echo $this->htmlEscape($this->getAddress()->getCompany()) ?>" class="input-text" />
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+<script>
+    function Mascara(o,f){
+        v_obj=o
+        v_fun=f
+        setTimeout("execmascara()",1)
+    }
+    
+    /*Função que Executa os objetos*/
+    function execmascara(){
+        v_obj.value=v_fun(v_obj.value)
+    }
+    
+    /*Função que Determina as expressões regulares dos objetos*/
+    function leech(v){
+        v=v.replace(/o/gi,"0")
+        v=v.replace(/i/gi,"1")
+        v=v.replace(/z/gi,"2")
+        v=v.replace(/e/gi,"3")
+        v=v.replace(/a/gi,"4")
+        v=v.replace(/s/gi,"5")
+        v=v.replace(/t/gi,"7")
+        return v
+    }
+    
+    /*Função que permite apenas numeros*/
+    function Integer(v){
+        return v.replace(/\D/g,"")
+    }
+    
+    /*Função que padroniza telefone (11) 4184-1241*/
+    function Telefone(v){
+        v=v.replace(/\D/g,"")                 
+        v=v.replace(/^(\d\d)(\d)/g,"($1) $2") 
+        v=v.replace(/(\d{4})(\d)/,"$1-$2")    
+        return v
+    }
+
+</script>
+                    <label for="telephone" class="required"><em>*</em>DDD & <?php echo $this->__('Telephone') ?></label>
+                    <div class="input-box">
+                        <input type="text" onKeyDown="Mascara(this,Telefone);" onKeyPress="Mascara(this,Telefone);" onKeyUp="Mascara(this,Telefone);" name="telephone" value="<?php echo $this->htmlEscape($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text required-entry" id="telephone" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="fax"><?php echo $this->__('Fax') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="fax" id="fax" title="<?php echo $this->__('Fax') ?>" value="<?php echo $this->htmlEscape($this->getAddress()->getFax()) ?>" class="input-text" />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="fieldset">
+        <h2 class="legend"><?php echo $this->__('Address') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+		             <label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
+						 <div class="input-box" style="position:relative; z-index:3000;">
+		                 <input type="text" style="width:410px;" name="street[]" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text required-entry" />
+		             </div>
+                </div>
+					<div class="field">
+						<label for="numero_1" style="margin-left:160px;" class="required"><em>*</em><?php echo $this->__('Number') ?></label>
+						<div class="input-box" style="position:relative; z-index:1000;">
+							<input type="text" style="width:50px;margin-left:160px;" name="numero[]" value="<?php echo $this->htmlEscape($this->getAddress()->getNumero(0)) ?>" title="<?php echo $this->__('Number') ?>" id="numero_1" class="input-text required-entry" />
+						</div>
+					</div>
+            </li>
+        <?php for ($_i=2, $_n=$this->helper('customer/address')->getStreetLines(); $_i<=$_n; $_i++): ?>
+            <li class="fields">
+					 <div class="field">
+                <div class="input-box" style="position:relative; z-index:3000;">
+                    <input type="text" style="width:410px;" name="street[]" value="<?php echo $this->htmlEscape($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i?>" class="input-text" />
+                </div>
+					 </div>
+					 <div class="field">
+                <div class="input-box" style="position:relative; z-index:1000;">
+                    <input type="text" style="width:50px;margin-left:160px;" name="numero[]" value="<?php echo $this->htmlEscape($this->getAddress()->getNumero($_i-1)) ?>" title="<?php echo $this->__('Number',$_i) ?>" id="numero_<?php echo $_i?>" class="input-text required-entry" />
+                </div>
+					 </div>
+            </li>
+        <?php endfor ?>
+				<li class="fields">
+					 <div class="field">
+						  <label for="bairro" class="required"><em>*</em><?php echo $this->__('Bairro') ?></label>
+						  <div class="input-box">
+								<input type="text" name="bairro" value="<?php echo $this->htmlEscape($this->getAddress()->getBairro()) ?>"  title="<?php echo $this->__('Bairro') ?>" class="input-text required-entry" id="bairro" />
+						  </div>
+					 </div>
+				</li>
+            <li class="fields">
+                <div class="field">
+                    <label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="city" value="<?php echo $this->htmlEscape($this->getAddress()->getCity()) ?>"  title="<?php echo $this->__('City') ?>" class="input-text required-entry" id="city" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
+                    <div class="input-box">
+                        <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
+                           <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+                        </select>
+                        <script type="text/javascript">
+                        //<![CDATA[
+                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
+                        //]]>
+                        </script>
+                        <input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" />
+                    </div>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="zip" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
+                    <div class="input-box">
+                        <input type="text" name="postcode" value="<?php echo $this->htmlEscape($this->getAddress()->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international required-entry" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
+                    <div class="input-box">
+                        <?php echo $this->getCountryHtmlSelect() ?>
+                    </div>
+                </div>
+            </li>
+            <li<?php if($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
+                <?php if($this->isDefaultBilling()): ?>
+                    <strong><?php echo $this->__('Default Billing Address') ?></strong>
+                <?php elseif($this->canSetAsDefaultBilling()): ?>
+                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo $this->__('Use as My Default Billing Address') ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
+                <?php else: ?>
+                    <input type="hidden" name="default_billing" value="1" />
+                <?php endif; ?>
+            </li>
+            <li<?php if($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
+                <?php if($this->isDefaultShipping()): ?>
+                    <strong><?php echo $this->__('Default Shipping Address') ?></strong>
+                <?php elseif($this->canSetAsDefaultShipping()): ?>
+                    <input type="checkbox" id="primary_shipping" name="default_shipping" value="1" title="<?php echo $this->__('Use as My Default Shipping Address') ?>" class="checkbox" /><label for="primary_shipping"><?php echo $this->__('Use as my default shipping address') ?></label>
+                <?php else: ?>
+                    <input type="hidden" name="default_shipping" value="1" />
+                <?php endif; ?>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
+//]]>
+</script>

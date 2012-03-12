@@ -1,0 +1,14 @@
+<?php 
+
+	
+  echo $this->montaInfo();
+	
+
+
+
+?>
+
+
+
+
+

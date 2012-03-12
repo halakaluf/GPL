@@ -1,0 +1,79 @@
+<?php
+
+		$order = new Mage_Sales_Model_Order();
+		$orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+		$order->loadByIncrementId($orderId);
+
+		$quote = Mage::getModel('sales/quote')->load(Mage::getSingleton('checkout/session')->getLastQuoteId());
+
+		//$customer = $order->getCustomer();
+		$payment = $quote->getPayment();
+//		  $additionalData = $this->getPayment()->getAdditionalData();
+
+		$afiliacao = Mage::getStoreConfig('payment/redecard/shop_id');
+		$ambiente = Mage::getStoreConfig('payment/redecard/ambiente_tipo');//"TESTE";
+		$modulo = "REDECARD";
+		$operacao = "Pagamento";
+				//$helper = Mage::helper('conamore_gpl');
+				//echo $helper->geraHtmlBandeiras();
+		//$bandeira = Mage::helper('conamore_gpl')->getBandeiraCartao($payment->getCcType());
+		$pedido = $order->getIncrementId();
+		$valor = Mage::helper('conamore_gpl')->formataValorCielo($order->getGrandTotal()) ;
+		//$valor = 100;
+		$parcelas =$payment->getAdditionalData();
+		$juros = "0";
+		$bandeira = "MasterCard";
+//echo $this->getDadosPagamento();
+//exit;
+		$RedecardIdioma = Mage::getStoreConfig('payment/redecard/idioma');//"PT";
+		$target ="https://conamore.sslblindado.com/loja/gpl/redecard/retorno";
+		$urlcima = "https://www.netuau.com.br/skin/frontend/base/default/images/logo_email.png";
+		$_code=$this->getMethodCode();
+		$code = "";
+?>
+<div class="gpl" id="id_<?php echo $_code ?>">
+<script>
+window.setTimeout('enviaFormulario()', 5000);
+
+function enviaFormulario(){
+	document.forms['redecard'].submit();
+
+}
+</script>
+<h2>Para sua maior segurança você será redirecionado para o site da operadora do cartão de credito.</h2>
+<br/>
+<h3>Certifique-se de desabilitar o bloqueador de Pop-up do seu navegador.</h3>
+<h3>Caso não seja redirecionado dentro de alguns segundos clique <a href="#" onclick="enviaFormulario();" >aqui</a></h3>
+
+<form name="redecard" method="POST" action="https://comercio.locaweb.com.br/comercio.comp">
+ 
+    <!-- Parâmetros obrigatórios -->
+    <input type="hidden" name="identificacao" value="<?php echo $afiliacao ?>"> <!-- Número de serviço de seu Gateway de Pagamentos -->
+    <input type="hidden" name="ambiente" value="<?php echo $ambiente ?>"> <!-- Ambiene de configuração disponível em seu painel "teste/producao" -->
+    <input type="hidden" name="modulo" value="<?php echo $modulo ?>"> <!-- Operadora que está configurando -->
+    <input type="hidden" name="operacao" value="<?php echo $operacao ?>"> <!-- Define a ação que será executada. Utilizar "Pagamento" para processar uma transação de venda -->
+    <input type="hidden" name="bandeira" value="<?php echo $bandeira ?>"> <!-- Define a bandeira que será utilizada, para multibandeira informe também a bandeira Visa -->
+    <input type="hidden" name="pedido" value="<?php echo $pedido ?>"> <!-- Número do pedido gerado através da loja -->
+    <input type="hidden" name="valor" value="<?php echo $valor ?>"> <!-- Valor à ser cobrado sem formatação, o exemplo ao lado significa R$ 1,00 -->
+    <input type="hidden" name="parcelas" value="<?php echo $parcelas ?>"> <!-- Número de parcelas que será feita a cobrança, "01" para transações à vista -->
+    <input type="hidden" name="juros" value="<?php echo $juros ?>"> <!-- Define se na transação parcelada haverá cobrança de juros. Utilize: "0" –juros do lojista e "1" – juros do emissor -->
+ 
+    <!-- Parâmetros adicionais -->
+    <input type="hidden" name="PAX1" value="<?php echo $code ?>"> <!-- Campo livre, serão informados os 4 útimos díitos do cartão -->
+    <input type="hidden" name="transacao" value="<?php echo $code ?>"> <!-- Código do tipo de transação fixo -->
+    <input type="hidden" name="AVS" value="<?php echo $code ?>"> <!-- Com esta função habilitada, serão solicitados informações extras ao seu cliente, por exemplo o CPF. Utilie o valor "S" para habilitar -->
+    <input type="hidden" name="RedecardIdioma" value="<?php echo $RedecardIdioma ?>"> <!-- Idioma utilizado no ambiente Visanet. Utilize: en – Inglês; es – Espanhol e pt – Português. A não postagem ou postagem em branco define o idioma Português -->
+    <input type="hidden" name="TARGET" value="<?php echo $target ?>"> <!-- Nome do frame para onde será retornado a URLBACK -->
+    <input type="hidden" name="urlcima" value="<?php echo $urlcima ?>"> <!-- Endereço completo da URL da página ou imagem para exibição superior da interface da operadora -->
+ 
+    <input type="submit" value="Enviar">
+ 
+</form>
+<!--IFRAME SRC="http://www.uol.com.br" WIDTH="650" HEIGHT="600">
+If you can see this, your browser doesn't 
+understand IFRAME.  However, we'll still 
+<A HREF="hello.html">link</A> 
+you to the file.
+</IFRAME-->
+
+</div>

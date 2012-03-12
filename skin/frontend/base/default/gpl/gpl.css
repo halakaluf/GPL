@@ -1,0 +1,90 @@
+/* Config Containers*/
+
+.gpl .bandeira-container {
+	cursor: pointer;
+	display: inline-block;
+	padding: 3px;
+	width: 55px;
+	height: 55px;
+	text-align: center;
+	position: relative;
+	border: 1px solid transparent;
+}
+
+
+.gpl .bandeira-container:hover {
+	background-color: #F0F0F0;
+	border: 1px solid #CCC;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+
+.gpl .bandeira-container-selecionada {
+	background-color: #F0F0F0;
+	border: 1px solid #CCC;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+
+.gpl .parcelas{
+	float:left;
+	width:220px;
+}
+
+.gpl .form-cartao{
+	float:right;
+}
+
+/* Config Containers*/
+
+.clear{
+	clear:both;
+}
+
+.gpl .bandeira {
+	cursor: pointer;
+	vertical-align: baseline;
+	position: absolute;
+	bottom: 5px;
+	left: 7px;
+}
+.gpl .number{
+	background-color: #F0F0F0;
+	border: 1px solid #CCC;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	top:-7px;
+	right:5px;
+	position:absolute;
+	font-size: 14px;
+	font-weight: bold;
+
+}
+
+.gpl span.titulo{
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.gpl .form-gpl-cartoes{
+	border: 1px solid #F18200;
+	padding:5px;
+
+
+}
+
+.gpl .inputRadio{
+	float:left;
+	margin-right:5px;
+}
+
+.gpl .parcelas p{
+	position: relative;
+	padding-left: 15px;
+	margin: 0 0 3px;
+}
+
+

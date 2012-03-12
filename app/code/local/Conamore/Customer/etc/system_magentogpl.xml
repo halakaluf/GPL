@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+	<config>
+		<sections>    
+			<payment>
+				<groups>
+					<magentogpl translate="label" module="paygate">
+					 <label>iPAGARE Pagamento Online - Módulo Versão 2.3</label>
+					 <comment>
+					 	<![CDATA[
+					 	<a href="http://www.ipagare.com.br" target="_blank">Crie uma conta grátis para testar</a><br/><br/>
+					 	IMPORTANTE: Para que o módulo funcione corretamente, é necessário ter uma conta no iPagare e ler o guia de instalação que detalha todas as configurações necessárias. <br/>
+					 	<a href="https://ipagare.zendesk.com/entries/259123-modulo-magento" target="_blank">Central de Ajuda iPAGARE</a>.<br/>]]></comment>
+					 <sort_order>0</sort_order>
+					 <show_in_default>1</show_in_default>
+					 <show_in_website>1</show_in_website>
+					 <show_in_store>0</show_in_store>
+					 <fields>
+						 <active translate="label">
+							<!-- label for the field -->
+							 <label>Habilitado</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_yesno</source_model>
+							 <sort_order>1</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </active>
+
+						 <title translate="label">
+							 <label>Título</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>2</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </title>
+						 
+						 <shop_id translate="label">
+						 	<label>Código do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>3</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Código do estabelecimento recebido no e-mail de notificação de entrada em produção (ver seção "Códigos para integração" do e-mail).</comment>
+						 </shop_id>
+						 
+						 <shop_key translate="label">
+							 <label>Código de segurança do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Código de Segurança do estabelecimento recebido no e-mail de notificação de entrada em produção (ver seção "Códigos para integração" do e-mail).</comment>
+						 </shop_key>
+								 
+								<one_click_checkout translate="label">
+									 <label>Habilitar Compra Com Um Clique?</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>8</sort_order>
+									 <show_in_default>1</show_in_default>
+									 <show_in_website>1</show_in_website>
+									 <show_in_store>0</show_in_store>
+									 <comment>
+									 	<![CDATA[<a href="http://ipagare.com.br/compra-com-1-clique" target="_blank">Saiba mais</a><br/>Este módulo deve ser contratado à parte e não está disponível para contas grátis.]]>
+									 </comment>
+								</one_click_checkout>
+								<is_sandbox translate="label">
+									 <label>Em testes</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>20</sort_order>
+									 <show_in_default>1</show_in_default>
+									 <show_in_website>1</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</is_sandbox>
+
+						 <order_status translate="label">
+							 <label>Status de pedidos</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_order_status_processing</source_model>
+							 <sort_order>6</sort_order>
+							 <show_in_default>0</show_in_default>
+							 <show_in_website>0</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </order_status>
+						 
+						 <debug_flag translate="label">
+									 <label>Debug</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>14</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</debug_flag>
+						
+								<error_log translate="label">
+									 <label>Error log</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>38</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</error_log>
+						
+								<debug_log translate="label">
+									 <label>Debug log</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>39</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</debug_log>
+					 </fields>
+					</magentogpl>
+				</groups>
+			</payment>
+		</sections>
+	</config>

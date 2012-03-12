@@ -1,0 +1,52 @@
+<?php
+
+$_code=$this->getMethodCode();
+?>
+<script type="text/javascript" >
+ initBuyCards(); 
+</script>
+<div class="gpl">
+<fieldset class="form-list" id="fieldset_<?php echo $_code ?>">
+    <ul id="payment_form_<?php echo $_code ?>" style="display:none">
+        <li>
+				<?php
+				//	 $checkout = Mage::getSingleton('checkout/session')->getQuote();
+				//	 $billing = $checkout->getBillingAddress();
+				//    echo $billing->getName() . $billing->getStreet(1) . $billing->getPostcode() . $billing->getCity() . $billing->getCountry(); 
+				//$totals = Mage::getSingleton('checkout/cart')->getQuote()->getTotals();
+//				$subtotal = $totals["grand_total"]->getValue();
+
+				//$months = $this->getData('cc_months');
+//				var_dump($months);
+				//echo '<br>';
+				//echo $this->getConfigData('shop_id') ;
+//				echo '<br>';
+//				echo Mage::getStoreConfig('payment/gpl/shop_id');
+				$helper = Mage::helper('conamore_gpl');
+				
+//				echo $this->geraHtmlBandeiras();
+				//Mage::helper('catalog/product');
+				//echo Mage::getStoreConfig('trans_email/ident_support/name');
+				$cartoesAceitos = explode(",", Mage::getStoreConfig('payment/redecard/cctypes'));
+				$vezesSemJuros = explode(",", Mage::getStoreConfig('payment/redecard/parcela_sem_juros'));
+				$total = count($cartoesAceitos);
+				$numParcelas = 1;
+				for ($i = 0; $i < $total; $i++) {
+					if(strtolower($cartoesAceitos[$i])=="mc"){
+						$numParcelas = $vezesSemJuros[$i];
+					}
+				}
+
+				?>
+				<div class="parcelas"><?php echo $this->geraParcelas($numParcelas); ?></div>
+
+<h2>Informação</h2>
+<p>
+Após o fechamento do pedido você será redirecionado ao ambiente da operadora de Cartão.
+</p>
+
+
+        </li>
+    </ul>
+</fieldset>
+</div>

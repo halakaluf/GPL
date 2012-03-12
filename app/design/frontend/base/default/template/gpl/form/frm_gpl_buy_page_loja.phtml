@@ -1,0 +1,29 @@
+<?php
+
+$_code=$this->getMethodCode();
+?>
+<script type="text/javascript" >
+ initBuyCards(); 
+</script>
+<div class="gpl">
+<fieldset class="form-list" id="fieldset_<?php echo $_code ?>">
+    <ul id="payment_form_<?php echo $_code ?>" style="display:none">
+        <li>
+				<?php
+				//$checkout = Mage::getSingleton('checkout/session')->getQuote();
+				//$billing = $checkout->getBillingAddress();
+				//echo $billing->getName() . $billing->getStreet(1) . $billing->getPostcode() . $billing->getCity() . $billing->getCountry(); 
+				//$totals = Mage::getSingleton('checkout/cart')->getQuote()->getTotals();
+				//$subtotal = $totals["grand_total"]->getValue();
+
+
+				//$helper = Mage::helper('conamore_gpl');
+				//echo $helper->geraHtmlBandeiras();
+				echo $this->geraHtmlBandeiras();
+				?>
+
+
+        </li>
+    </ul>
+</fieldset>
+</div>

@@ -1,0 +1,172 @@
+<?php
+		Mage::helper('kint');
+		$order = new Mage_Sales_Model_Order();
+		$orderId = Mage::getSingleton('checkout/session')->getLastRealOrderId();
+		$order->loadByIncrementId($orderId);
+		$enderecoEntrega = $order->getShippingAddress();
+//		$customer = $order->getCustomer();
+		//d($order);
+		$customer = Mage::getSingleton('customer/session')->getCustomer(); 
+//d($order->getAllItems());
+
+
+
+//		$customer = Mage::getModel('customer/customer')->load($order()->getCustomerId());
+
+		$afiliacao = Mage::getStoreConfig('payment/boletos/shop_id');
+		$ambiente = Mage::getStoreConfig('payment/boletos/ambiente_tipo');
+		$modulo = "ITAUSHOPLINE";
+		$operacao = "Emissao";
+//		Mage::log();
+				//$helper = Mage::helper('conamore_gpl');
+				//echo $helper->geraHtmlBandeiras();
+		//$bandeira = Mage::helper('conamore_gpl')->getBandeiraCartao($payment->getCcType());
+		//$pedido = $order->getIncrementId();
+		//o entity_id pq o IncrementId tem mais de 8 caracteres
+		$pedido = $order->getEntity_id();
+		$valor = Mage::helper('conamore_gpl')->formataValorCielo($order->getGrandTotal());
+
+		$vencimento = date("d/m/Y",time()+3600*24*5);
+
+		$_code=$this->getMethodCode();
+		$nome =$order->getCustomerFirstname()." ". $order->getCustomerLastname();
+		$obs = "";
+		$cpfcgc =$customer->getCustomcpf();
+		$endereco = $enderecoEntrega->getStreet();
+		$bairro = $enderecoEntrega->getBairro();
+		$cep = ereg_replace("[^0-9]", "", $enderecoEntrega->getPostcode());
+		$cidade = $enderecoEntrega->getCity();
+		$estado = $enderecoEntrega->getRegion();
+		$OBSAdicional1 = "";
+		$OBSAdicional2 = "";
+		$OBSAdicional3 = "";
+
+$red = $this->getRequest()->getParam('redirect');
+
+//exit;
+?>
+<div class="gpl" id="id_<?php echo $_code ?>">
+<script>
+<?php if ($red == "boleto"): ?>
+window.setTimeout('enviaFormulario()', 0010);
+<?php endif; ?>
+function enviaFormulario(){
+	document.forms['boletos'].submit();
+ 
+}
+</script>
+<?php if ($red != "boleto"): ?>
+<h2>Seu pedido foi realizado com sucesso, para finalizar sua compra faça o pagamento do boleto.</h2>
+<br/>
+<h3>Certifique-se de desabilitar o bloqueador de Pop-up do seu navegador.</h3>
+<br/>
+
+
+<table id="checkout-review-table" class="data-table">
+	<colgroup>
+		<col>
+		<col width="1">
+		<col width="1">
+		<col width="1">
+	</colgroup>
+	<thead>
+		<tr class="first last">
+			<th colspan="3" >Numero do Pedido</th>
+			<th class="a-center" colspan="1"><?php echo $order->getIncrementId() ?></th>
+		</tr>
+		<tr class="first last">
+			<th rowspan="1">Nome do Produto</th>
+			<th class="a-center" colspan="1">Preço</th>
+			<th class="a-center" rowspan="1">Qtd</th>
+			<th class="a-center" colspan="1">Subtotal</th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr class="first">
+			<td colspan="3" class="a-right" style="">
+				Subtotal    
+			</td>
+			<td class="a-right last" style="">
+				<span class="price">R$<?php echo money_format('%n', $order->getSubtotal())?></span> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="a-right" style="">
+			Frete (<?php echo $order->getShippingDescription()?>)    </td>
+			<td class="a-right last" style="">
+			<span class="price">R$ <?php echo money_format('%n', $order->getShippingAmount())?></span>    </td>
+		</tr>
+		<tr class="last">
+			<td colspan="3" class="a-right" style="">
+				<strong>Valor Total</strong>
+			</td>
+			<td class="a-right last" style="">
+				<strong><span class="price">R$<?php echo money_format('%n', $order->getGrandTotal())?></span></strong>
+			</td>
+		</tr>
+	</tfoot>
+	<tbody>
+		<?php foreach ($order->getAllItems() as $itemId => $item): ?>
+				<tr class="first last odd">
+					<td>
+						<h3 class="product-name"><?php echo $item->getName()?></h3>
+					</td>
+					<td class="a-right">
+						<span class="cart-price">
+						<span class="price">R$<?php echo money_format('%n', $item->getPrice())?></span>            
+						</span>
+					</td>
+					<td class="a-center"><?php echo $item->getQtyToInvoice()?></td>
+					<td class="a-right last">
+						<span class="cart-price">
+						<span class="price">R$<?php echo money_format('%n', $item->getRowTotal())?></span>            
+						</span>
+					</td>
+				</tr>
+		<?php endforeach ?>
+	</tbody>
+</table>
+
+<h1>Para imprimir seu boleto clique <a href="?redirect=boleto" target="_blank" >aqui</a></h1>
+<?php else: ?>
+
+<h2>Seu boleto esta sendo gerado...</h2>
+<br/>
+<h3>Caso não seja redirecionado dentro de alguns segundos clique <a href="#" target="_blank" onclick="enviaFormulario();" >aqui</a></h3>
+
+<?php endif; ?>
+
+<form name="boletos" method="POST" action="https://comercio.locaweb.com.br/comercio.comp">
+ 
+    <!-- Parametros obrigatorios -->
+    <input type="hidden" name="identificacao" value="<?php echo $afiliacao ?>">
+    <input type="hidden" name="modulo" value="<?php echo $modulo ?>">
+    <input type="hidden" name="ambiente" value="<?php echo $ambiente ?>">
+    <input type="hidden" name="operacao" value="<?php echo $operacao ?>">
+    <input type="hidden" name="pedido" value="<?php echo $pedido ?>">
+    <input type="hidden" name="valor" value="<?php echo $valor ?>">
+    <input type="hidden" name="vencimento" value="<?php echo $vencimento ?>">
+    <input type="hidden" name="nome" value="<?php echo $nome ?>">
+    <input type="hidden" name="obs" value="<?php echo $obs ?>">
+    <input type="hidden" name="cpfcgc" value="<?php echo $cpfcgc ?>">
+    <input type="hidden" name="endereco" value="<?php echo $endereco[0] ?>">
+    <input type="hidden" name="bairro" value="<?php echo $bairro ?>">
+    <input type="hidden" name="cep" value="<?php echo $cep ?>">
+    <input type="hidden" name="cidade" value="<?php echo $cidade ?>">
+    <input type="hidden" name="estado" value="<?php echo $estado ?>">
+    <input type="hidden" name="OBSAdicional1" value="<?php echo $OBSAdicional1 ?>">
+    <input type="hidden" name="OBSAdicional2" value="<?php echo $OBSAdicional2 ?>">
+    <input type="hidden" name="OBSAdicional3" value="<?php echo $OBSAdicional3 ?>">
+
+
+
+ 
+</form>
+<!--IFRAME SRC="http://www.uol.com.br" WIDTH="650" HEIGHT="600">
+If you can see this, your browser doesn't 
+understand IFRAME.  However, we'll still 
+<A HREF="hello.html">link</A> 
+you to the file.
+</IFRAME-->
+
+</div>

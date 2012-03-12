@@ -1,0 +1,16 @@
+<?php 
+
+	if(Mage::getStoreConfig('payment/gpl/contrato_tipo') == "BUY_PAGE_CIELO"){
+      echo $this->montaInfoBuyPageCielo();
+	}elseif(Mage::getStoreConfig('payment/gpl/contrato_tipo') == "BUY_PAGE_LOJA"){
+      echo $this->montaInfoBuyPageLoja();
+	}
+
+
+
+?>
+
+
+
+
+

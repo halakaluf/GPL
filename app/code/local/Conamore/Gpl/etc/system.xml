@@ -1,0 +1,357 @@
+<?xml version="1.0"?>
+	<config>
+		<sections>    
+			<payment>
+				<groups>
+					<gpl translate="label" module="conamore_gpl">
+					 <label>Gateway de Pagamentos para LocaWeb Versão 0.3 (Cielo Ecommerce)</label>
+					 <comment>
+					 <![CDATA[
+					 	IMPORTANTE: Módulo de integração com o Gateway de pagamentos locaweb através da Cielo Ecommerce.<br/>
+					 ]]>
+					 </comment>
+					 <sort_order>0</sort_order>
+					 <show_in_default>1</show_in_default>
+					 <show_in_website>1</show_in_website>
+					 <show_in_store>0</show_in_store>
+					 <fields>
+						 <active translate="label">
+							 <label>Habilitado</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_yesno</source_model>
+							 <sort_order>1</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </active>
+
+						 <title translate="label">
+							 <label>Título</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>2</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Título que o seu cliente irá ver no site de compra.]]></comment>
+						 </title>
+						 
+						 <shop_id translate="label">
+						 	<label>Código do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>3</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Código de serviço do Gateway de Pagamentos junto à Locaweb (Disponível em seu Painel de Controle da Locaweb <a href="http://painel.locaweb.com.br/" target="_blank">http://painel.locaweb.com.br/</a>).]]></comment>
+						 </shop_id>
+
+						 <ambiente_tipo translate="label">
+							 <label>Ambiente</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_AmbienteTipo</source_model>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Define o ambiente a ser usado.</comment>
+						 </ambiente_tipo>	
+
+						 <contrato_tipo translate="label">
+							 <label>Contrato</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_ContratoTipo</source_model>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Tipo de contrato com a Cielo Ecommerce.</comment>
+						 </contrato_tipo>							 
+
+						 <idioma translate="label">
+							 <label>Idioma</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_Idioma</source_model>
+							 <sort_order>5</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Idioma do pedido.<br/> Geralmente o mesmo da Loja.]]></comment>
+						 </idioma>		
+
+						 <cctypes translate="label">
+							 <label>Cartões Aceitos</label>
+							 <frontend_type>multiselect</frontend_type>
+							 <source_model>adminhtml/system_config_source_payment_cctype</source_model>
+							 <sort_order>6</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <can_be_empty>1</can_be_empty>
+						 </cctypes>
+
+						 <parcela_sem_juros translate="label">
+						 	<label>Parcelas sem juros</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>7</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Aqui você informará quantas vezes seu cliente podera dividir em cada cartão sem juros.<br/>Ex:&nbsp;3,5,4<br/>Os campos devem estar separados por vírgula e na mesma ordem dos cartões selecionados.]]></comment>
+						 </parcela_sem_juros>
+
+						 <order_status translate="label">
+							 <label>Status de pedidos</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_order_status_processing</source_model>
+							 <sort_order>8</sort_order>
+							 <show_in_default>0</show_in_default>
+							 <show_in_website>0</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </order_status>
+
+						 <valor_minimo_parcelamento translate="label">
+						 	<label>Valor mínimo para Parcelamento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>9</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Aqui você informará o valor mínimo permitido para parcelamento da compra.<br/> Ex: 10,56]]></comment>
+						 </valor_minimo_parcelamento>
+						 
+						 <debug_flag translate="label">
+									 <label>Debug</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>14</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</debug_flag>
+						
+								<error_log translate="label">
+									 <label>Error log</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>38</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</error_log>
+						
+								<debug_log translate="label">
+									 <label>Debug log</label>
+									 <frontend_type>select</frontend_type>
+									 <source_model>adminhtml/system_config_source_yesno</source_model>
+									 <sort_order>39</sort_order>
+									 <show_in_default>0</show_in_default>
+									 <show_in_website>0</show_in_website>
+									 <show_in_store>0</show_in_store>
+								</debug_log>
+					 </fields>
+					</gpl>
+					<redecard translate="label">
+						<label>Gateway de Pagamentos para LocaWeb Versão 0.4 (RedeCard)</label>
+						<comment>
+						<![CDATA[
+						IMPORTANTE: E módulo difícil do cacete.<br/>
+						]]>
+						</comment>
+						<sort_order>0</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>0</show_in_store>
+						<fields>
+						 <active translate="label">
+							 <label>Habilitado</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_yesno</source_model>
+							 <sort_order>1</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </active>
+						 <title translate="label">
+							 <label>Título</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>2</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </title>
+						 <ambiente_tipo translate="label">
+							 <label>Ambiente</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_AmbienteTipo</source_model>
+							 <sort_order>3</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Define o ambiente a ser usado.</comment>
+						 </ambiente_tipo>		
+						 <shop_id translate="label">
+						 	<label>Código do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Código de serviço do Gateway de Pagamentos junto à Locaweb (Disponível em seu Painel de Controle da Locaweb <a href="http://painel.locaweb.com.br/" target="_blank">http://painel.locaweb.com.br/</a>).]]></comment>
+						 </shop_id>
+						 <cctypes translate="label">
+							 <label>Cartões Aceitos</label>
+							 <frontend_type>multiselect</frontend_type>
+							 <source_model>adminhtml/system_config_source_payment_cctype</source_model>
+							 <sort_order>5</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <can_be_empty>1</can_be_empty>
+						 </cctypes>
+						 <parcela_sem_juros translate="label">
+						 	<label>Parcelas sem juros</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>6</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Aqui você informará quantas vezes seu cliente podera dividir em cada cartão sem juros.<br/>Ex:&nbsp;3,5,4<br/>Os campos devem estar separados por vírgula e na mesma ordem dos cartões selecionados.]]></comment>
+						 </parcela_sem_juros>
+						 <idioma translate="label">
+							 <label>Idioma</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_Idioma</source_model>
+							 <sort_order>7</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Idioma do pedido.<br/> Geralmente o mesmo da Loja.]]></comment>
+						 </idioma>	
+						</fields>
+					</redecard>
+					<boletos translate="label">
+						<label>Gateway de Pagamentos para LocaWeb Versão 0.2 Boletos (Itaú Shopline)</label>
+						<comment>
+						<![CDATA[
+						IMPORTANTE: Módulo de integração com o Gateway de pagamentos locaweb para geração de boletos através da Itaú Shopline.<br/>
+						]]>
+						</comment>
+						<sort_order>0</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>0</show_in_store>
+						<fields>
+						 <active translate="label">
+							 <label>Habilitado</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_yesno</source_model>
+							 <sort_order>1</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </active>
+						 <title translate="label">
+							 <label>Título</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>2</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </title>
+						 <ambiente_tipo translate="label">
+							 <label>Ambiente</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_AmbienteTipo</source_model>
+							 <sort_order>3</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Define o ambiente a ser usado.</comment>
+						 </ambiente_tipo>		
+						 <shop_id translate="label">
+						 	<label>Código do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Código de serviço do Gateway de Pagamentos junto à Locaweb (Disponível em seu Painel de Controle da Locaweb <a href="http://painel.locaweb.com.br/" target="_blank">http://painel.locaweb.com.br/</a>).]]></comment>
+						 </shop_id>
+						 <cctypes translate="label">
+							 <label>Cartões Aceitos</label>
+							 <frontend_type>multiselect</frontend_type>
+							 <source_model>adminhtml/system_config_source_payment_cctype</source_model>
+							 <sort_order>5</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <can_be_empty>1</can_be_empty>
+						 </cctypes>
+						 <parcela_sem_juros translate="label">
+						 	<label>Parcelas sem juros</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>6</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Aqui você informará quantas vezes seu cliente podera dividir em cada cartão sem juros.<br/>Ex:&nbsp;3,5,4<br/>Os campos devem estar separados por vírgula e na mesma ordem dos cartões selecionados.]]></comment>
+						 </parcela_sem_juros>
+						 <idioma translate="label">
+							 <label>Idioma</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_Idioma</source_model>
+							 <sort_order>7</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Idioma do pedido.<br/> Geralmente o mesmo da Loja.]]></comment>
+						 </idioma>	
+						</fields>
+					</boletos>
+					<clearsale translate="label">
+						<label>Integração com MClearSale para LocaWeb Versão 0.5</label>
+						<comment>
+						<![CDATA[
+						IMPORTANTE: Módulo de integração com o Gateway de pagamentos locaweb para integração com o MClearSale.<br/>
+						]]>
+						</comment>
+						<sort_order>0</sort_order>
+						<show_in_default>1</show_in_default>
+						<show_in_website>1</show_in_website>
+						<show_in_store>0</show_in_store>
+						<fields>
+						 <active translate="label">
+							 <label>Habilitado</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>adminhtml/system_config_source_yesno</source_model>
+							 <sort_order>1</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+						 </active>
+						 <ambiente_tipo translate="label">
+							 <label>Ambiente</label>
+							 <frontend_type>select</frontend_type>
+							 <source_model>Conamore_Gpl_Model_Source_AmbienteTipo</source_model>
+							 <sort_order>3</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment>Define o ambiente a ser usado.</comment>
+						 </ambiente_tipo>	
+						 <shop_id translate="label">
+						 	<label>Código do estabelecimento</label>
+							 <frontend_type>text</frontend_type>
+							 <sort_order>4</sort_order>
+							 <show_in_default>1</show_in_default>
+							 <show_in_website>1</show_in_website>
+							 <show_in_store>0</show_in_store>
+							 <comment><![CDATA[Código de serviço do Gateway de Pagamentos junto à Locaweb (Disponível em seu Painel de Controle da Locaweb <a href="http://painel.locaweb.com.br/" target="_blank">http://painel.locaweb.com.br/</a>).]]></comment>
+						 </shop_id>
+						</fields>
+					</clearsale>
+
+				</groups>
+			</payment>
+		</sections>
+	</config>

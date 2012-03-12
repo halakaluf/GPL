@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+     <Conamore_Gpl>
+        <version>0.0.1</version>
+     </Conamore_Gpl>
+  </modules>
+
+  <global>
+		<blocks>
+			<gpl>
+				 <class>Conamore_Gpl_Block</class>
+			</gpl>
+         <adminhtml>  
+             <rewrite>  
+                 <sales_order_view_tab_info>Conamore_Adminhtml_Block_Sales_Order_View_Tab_Info</sales_order_view_tab_info>  
+             </rewrite>  
+         </adminhtml>
+		</blocks>
+		<helpers>
+			<conamore_gpl>
+				 <class>Conamore_Gpl_Helper</class>
+			</conamore_gpl>
+		</helpers>
+      <models>
+          <conamore_gpl>
+              <class>Conamore_Gpl_Model</class>
+          </conamore_gpl>
+      </models>
+
+      <resources>
+          <conamore_gpl_setup>
+              <setup>
+                  <module>Conamore_Gpl</module>
+              </setup>
+              <connection>
+                  <use>core_setup</use>
+              </connection>
+          </conamore_gpl_setup>
+          <conamore_gpl_write>
+              <connection>
+                <use>core_write</use>
+              </connection>
+          </conamore_gpl_write>
+          <conamore_gpl_read>
+             <connection>
+              <use>core_read</use>
+            </connection>
+          </conamore_gpl_read>
+      </resources>
+		<events>
+			<!--sales_order_save_before>
+				 <observers>
+				     <payment_sales_order_save_before>
+				         <class>conamore_gpl/observer</class>
+				         <method>salesOrderBeforeSave</method>
+				     </payment_sales_order_save_before>
+				 </observers>
+			</sales_order_save_before-->
+
+			<checkout_type_onepage_save_order>
+				 <observers>
+				     <payment_sales_order_save>
+				         <class>conamore_gpl/observer</class>
+				         <method>salesOrderSave</method>
+				     </payment_sales_order_save>
+				 </observers>
+			</checkout_type_onepage_save_order>
+
+			<sales_convert_quote_address_to_order_address>
+				<observers>
+				  <insert_shipping_billing_adress>
+				      <class>conamore_gpl/observer</class>
+						<method>salesOrderBeforeSave</method>
+				  </insert_shipping_billing_adress>
+				</observers>
+			</sales_convert_quote_address_to_order_address>
+		</events>
+
+  </global>
+  <frontend>
+	<routers>
+		<gpl>
+			<use>standard</use>
+			<args>
+				<module>Conamore_Gpl</module>
+				<frontName>gpl</frontName>
+			</args>
+		</gpl>
+	</routers>  
+  </frontend>
+<!--admin>
+  <routers>
+	   <gpl>
+	       <use>admin</use>
+	       <args>
+	           <module>Conamore_Gpl</module>
+
+	           <frontName>gpl</frontName>
+	       </args>
+	   </gpl>
+  </routers>
+</admin-->
+	<!--stores>
+	  <admin>
+			<design>
+			    <theme>
+			        <default>conamore</default>
+			    </theme>
+			</design>
+	  </admin>
+	</stores-->
+  <default>
+      <payment>
+          <gpl module="conamore_gpl">
+              <active>1</active>
+              <model>conamore_gpl/gpl</model>
+              <order_status>pending</order_status>
+              <title>Credit Card (MagentoGPL)</title>
+
+              <cctypes>AE,VI,MC,DI</cctypes>
+              <allowspecific>0</allowspecific>
+          </gpl>
+			<redecard module="conamore_gpl"> 
+				<active>1</active>
+				<model>conamore_gpl/redecard</model>
+				<order_status>pending</order_status>
+				<title>Credit Card (MasterCard)</title>
+				<allowspecific>0</allowspecific>
+            <use_return_page_cms>0</use_return_page_cms>
+			</redecard>
+			<boletos module="conamore_gpl"> 
+				<active>1</active>
+				<model>conamore_gpl/boletos</model>
+				<order_status>pending</order_status>
+				<title>Pagamentos com Boleto</title>
+				<allowspecific>0</allowspecific>
+            <use_return_page_cms>0</use_return_page_cms>
+			</boletos>
+       </payment>
+  </default>
+</config>
