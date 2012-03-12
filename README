@@ -1,0 +1,9 @@
+Esse projeto é um modulo de pagamento para magento 1.5 usando O Gateway de Pagamentos da LocaWeb
+
+Faz a integração tanto com Buy Page Loja e Buy Page Cielo.
+Integra também com o MclearSale.
+Integra com Boleto Itau.
+E tambem já gera a etiqueta padrão dos correios com código de barras e tudo.
+
+Olha para usar o modulo você tem que ter o magento 1.5.1
+E vai ter que incluir uns campos no cadastro do cliente e no endereço do mesmo necessários para integração com a cielo ecommerce e com MclearSale. (isso é tranquilo)
